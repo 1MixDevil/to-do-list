@@ -1,17 +1,40 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <SearchInfo @add-search="serchInfo"></SearchInfo>
+    <FormAddToDo @new-info="addNewList"></FormAddToDo>
+    <PrintTable @new-info="correctionInfo" :full-info="toDo" :search="search"> </PrintTable>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
+import FormAddToDo from "@/components/FormAddToDo";
+import PrintTable from "@/components/PrintTable";
+import SearchInfo from "@/components/SearchInfo";
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    SearchInfo,
+    PrintTable,
+    FormAddToDo
+
+  },
+  data(){
+    return{
+      toDo: [],
+      search: "",
+    }
+  },
+  methods: {
+    addNewList(text){
+      this.toDo.unshift(text)
+    },
+    correctionInfo(newInfo){
+      this.toDo = newInfo
+    },
+    serchInfo(text){
+      this.search=text;
+    }
   }
 }
 </script>
